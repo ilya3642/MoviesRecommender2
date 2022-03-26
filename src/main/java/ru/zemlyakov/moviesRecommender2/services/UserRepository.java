@@ -2,14 +2,15 @@ package ru.zemlyakov.moviesRecommender2.services;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import ru.zemlyakov.moviesRecommender2.models.User;
 
+import javax.persistence.QueryHint;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-
-    @Query("SELECT u FROM User u WHERE u.chatId =?1")
+    @QueryHints(value = {@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true")})
     Optional<User> findByChatId(long chatId);
 
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.historyOfViewing m WHERE u.chatId =?1")
@@ -18,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.favouriteGenres g WHERE u.chatId =?1")
     Optional<User> findByChatIdAndGetFavouriteGenres(long chatId);
 
-    @Query("SELECT u FROM User u LEFT JOIN FETCH u.historyOfViewing m LEFT JOIN FETCH u.favouriteGenres g WHERE u.chatId =?1")
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.historyOfViewing m WHERE u.chatId =?1")
     Optional<User> findByChatIdAndGetFullInf(long chatId);
 
 }

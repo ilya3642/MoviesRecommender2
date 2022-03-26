@@ -53,7 +53,7 @@ public class MovieService {
 
     @Transactional
     public List<Movie> getRecommendation(User user, int numPage, int limit) {
-        PageRequest pageRequest = PageRequest.of(numPage, limit, Sort.by("rating.weightedAverage").descending());
+        PageRequest pageRequest = PageRequest.of(numPage, limit, Sort.by("rating.weightedAverage", "rating.ratingKinopoisk").descending());
         List<Movie> result;
 
         if (!user.getHistoryOfViewing().isEmpty() && !user.getFavouriteGenres().isEmpty()) {

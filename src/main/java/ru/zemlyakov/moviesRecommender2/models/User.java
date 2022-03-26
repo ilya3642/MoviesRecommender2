@@ -1,13 +1,24 @@
 package ru.zemlyakov.moviesRecommender2.models;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Set;
 
+import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
+
 @Entity
 @Table(name = "mr_users")
+@Cacheable
+@org.hibernate.annotations.Cache(
+        usage = READ_WRITE
+)
+@NaturalIdCache
 public class User {
 
     @SequenceGenerator(
@@ -20,14 +31,18 @@ public class User {
             strategy = GenerationType.SEQUENCE
     )
     @Id
-    @Column(name = "user_id")
+    @Column(
+            name = "user_id"
+    )
     private long id;
 
     @Column(
             name = "chat_id",
             nullable = false,
-            unique = true
+            unique = true,
+            updatable = false
     )
+    @NaturalId
     private long chatId;
 
     @Column(
@@ -71,14 +86,15 @@ public class User {
     private Set<Movie> historyOfViewing;
 
     @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}
+            cascade = {CascadeType.MERGE, CascadeType.REFRESH},
+            fetch = FetchType.EAGER
     )
     @JoinTable(
             name = "MR_User_favourite_genre",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
+    @org.hibernate.annotations.Cache(usage = READ_WRITE)
     private Set<Genre> favouriteGenres;
 
     public User(long id, long chatId, String userName, short minYearOfCreateMovie, short maxYearOfCreateMovie) {

@@ -55,7 +55,7 @@ public class UserService {
 
     public User getUserWithGenres(Long chatId) {
         Optional<User> userOptional =
-                userRepository.findByChatIdAndGetFavouriteGenres(chatId);
+                userRepository.findByChatId(chatId);
         if (userOptional.isEmpty()) {
             throw new IllegalStateException("User not already be taken");
         } else
