@@ -109,6 +109,8 @@ public class DBFiller {
         String originalTitle = root.get("nameOriginal").toString();
         if (!originalTitle.equals("null")) {
             metacriticRating = sendMetacriticRequest(originalTitle);
+            if (originalTitle.length()>53)
+                originalTitle = new StringBuilder(originalTitle).delete(51,originalTitle.length()-1).append("...").toString();
         }
 
         Rating ratingOfNewMovie = new Rating(
