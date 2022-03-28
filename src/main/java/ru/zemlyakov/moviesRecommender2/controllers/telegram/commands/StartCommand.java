@@ -6,9 +6,6 @@ import ru.zemlyakov.moviesRecommender2.models.User;
 import ru.zemlyakov.moviesRecommender2.services.GenreService;
 import ru.zemlyakov.moviesRecommender2.services.UserService;
 
-import java.util.HashSet;
-
-
 public class StartCommand implements Command {
 
     private static final String START_TEXT = "Привет! Я бот для рекомендации фильмов :) " +
@@ -33,14 +30,8 @@ public class StartCommand implements Command {
     public void execute(Update update) {
         Long chatId = update.getMessage().getChatId();
         messageService.sendMessage(chatId.toString(), START_TEXT);
-
-        if (!userService.existUser(chatId)) {
-            User newUser = new User(chatId, update.getMessage().getChat().getFirstName());
-            newUser.setFavouriteGenres(new HashSet<>());
-            userService.saveOrUpdate(newUser);
-            new FavoriteCommand(messageService, userService, genreService).execute(update);
-        }
-
+        userService.saveOrUpdate(new User(chatId, update.getMessage().getChat().getFirstName()));
+        new FavoriteCommand(messageService, userService, genreService).execute(update);
     }
 
 }

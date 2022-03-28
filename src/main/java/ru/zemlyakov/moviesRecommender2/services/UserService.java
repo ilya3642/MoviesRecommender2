@@ -25,12 +25,6 @@ public class UserService {
             userRepository.save(newUser);
     }
 
-    public boolean existUser(Long chatId){
-        Optional<User> userOptional =
-                userRepository.findByChatId(chatId);
-        return userOptional.isPresent();
-    }
-
     public User getUser(Long chatId) {
         Optional<User> userOptional =
                 userRepository.findByChatId(chatId);
