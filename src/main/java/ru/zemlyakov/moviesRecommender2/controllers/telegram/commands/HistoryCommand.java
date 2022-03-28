@@ -27,7 +27,7 @@ public class HistoryCommand implements Command {
     }
 
     private String getHistory(long chatId) {
-        Set<Movie> history = userService.getHistoryOfViewing(chatId);
+        Set<Movie> history = userService.getUserWithHistory(chatId).getHistoryOfViewing();
         StringBuilder sb = new StringBuilder(HISTORY_TEXT).append("\n\n");
 
         if (history.isEmpty()) {
