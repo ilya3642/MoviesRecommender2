@@ -61,6 +61,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
 		<dependency>
 			<groupId>org.jsoup</groupId>

@@ -64,13 +64,4 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             Collection<Long> genreId, Pageable pageable
     );
 
-
-    @Query("SELECT m FROM Movie m WHERE NOT EXISTS (SELECT 1 FROM User u WHERE u=?1 and m member of u.historyOfViewing) AND" +
-            " m.rating.weightedAverage > ?2")
-    Page<Movie> findByRatingIsGreaterThanAndByHistoryOfUserOrderByRatingDesc(
-            @NotNull User ID,
-            float ratingLimit,
-            Pageable pageable
-    );
-
 }

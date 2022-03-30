@@ -143,14 +143,15 @@ public class DBFiller {
 
         newGenres.stream()
                 .filter(s -> s.length() != 0)
+                .map(String::toLowerCase)
                 .map(Genre::new)
-                .forEach(g -> genresOfMovie.add(
-                                genreService.addNewGenre(g)
+                .forEach(genre ->
+                        genresOfMovie.add(
+                                genreService.getOrSave(genre)
                         )
                 );
 
         newMovie.setGenre(genresOfMovie);
-
         String posterURL = root.get("posterUrlPreview").toString();
         if (!posterURL.equals("null")) {
             newMovie.setPosterURL(posterURL.substring(1, posterURL.length() - 1));
@@ -161,7 +162,7 @@ public class DBFiller {
 
     private Float sendMetacriticRequest(String title) {
         String formatTitle = getTitleForRequest(title);
-        Float metacriticScore = 0f;
+        float metacriticScore = 0f;
 
         try {
             Document document = Jsoup

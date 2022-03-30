@@ -31,8 +31,8 @@ public class FavoriteCommand implements Command {
     @Override
     public void execute(Update update) {
         Long chatId = update.getMessage().getChatId();
-        User user = userService.getUserWithGenres(chatId);
         List<Genre> genres = genreService.getAllGenres();
+        User user = userService.getUserWithGenres(chatId);
 
         messageService.sendMessage(
                 chatId.toString(),
@@ -43,11 +43,5 @@ public class FavoriteCommand implements Command {
                         )
                 )
         );
-
-//        messageService.sendQueueMessage(
-//                chatId.toString(),
-//                movieService.getRecommendation(
-//                        user,
-//                        7));
     }
 }

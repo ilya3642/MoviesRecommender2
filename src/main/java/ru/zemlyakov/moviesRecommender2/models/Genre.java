@@ -1,6 +1,7 @@
 package ru.zemlyakov.moviesRecommender2.models;
 
-
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
@@ -9,9 +10,15 @@ import java.util.Objects;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.SEQUENCE;
+import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_ONLY;
 
 @Entity
 @Table(name = "MR_GENRES")
+@Cacheable
+@org.hibernate.annotations.Cache(
+        usage = READ_ONLY
+)
+@NaturalIdCache
 @SelectBeforeUpdate
 public class Genre {
 
@@ -40,6 +47,7 @@ public class Genre {
             unique = true
     )
     @NotBlank
+    @NaturalId
     private String genreName;
 
     @ManyToMany(
