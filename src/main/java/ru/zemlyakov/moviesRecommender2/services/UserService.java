@@ -17,11 +17,6 @@ public class UserService {
     }
 
     public void saveOrUpdate(User newUser) {
-//        Optional<User> userOptional = userRepository
-//                .findByChatId(newUser.getChatId());
-//        if (userOptional.isPresent()) {
-//            throw new IllegalStateException("User already be taken");
-//        } else
             userRepository.save(newUser);
     }
 
@@ -61,10 +56,4 @@ public class UserService {
             return userOptional.get();
     }
 
-//    @Transactional
-//    public Set<Movie> getHistoryOfViewing(long chatId) {
-//        Set<Movie> history = getUser(chatId).getHistoryOfViewing();
-//        Hibernate.initialize(history);
-//        return history;
-//    }
 }

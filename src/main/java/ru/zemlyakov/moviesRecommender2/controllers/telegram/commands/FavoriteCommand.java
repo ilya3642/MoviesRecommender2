@@ -43,11 +43,5 @@ public class FavoriteCommand implements Command {
                         )
                 )
         );
-
-//        messageService.sendQueueMessage(
-//                chatId.toString(),
-//                movieService.getRecommendation(
-//                        user,
-//                        7));
     }
 }

@@ -12,8 +12,6 @@ public class StartCommand implements Command {
             "Я могу запоминать просмотренные тобой фильмы и предлагать к просмотру новые, " +
             "основываясь на твоих предпочтениях и мировых оценках пользователей и критиков!\n\n";
 
-    //private static final String START_TEXT_NEW_USER = "Давай начнём с зака, какие из следующих фильмов ты уже видел?";
-
     private final SendMessageBotService messageService;
     private final UserService userService;
     private final GenreService genreService;

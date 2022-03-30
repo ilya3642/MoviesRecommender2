@@ -17,11 +17,6 @@ public class GenreService {
         this.genreRepository = genreRepository;
     }
 
-    public boolean existsGenre(String genreName) {
-        Optional<Genre> genreOptional = genreRepository.findByGenreName(genreName);
-        return genreOptional.isPresent();
-    }
-
     public Genre getGenre(String genreName) {
         Optional<Genre> genreOptional = genreRepository.findByGenreName(genreName);
         if (genreOptional.isEmpty()) {

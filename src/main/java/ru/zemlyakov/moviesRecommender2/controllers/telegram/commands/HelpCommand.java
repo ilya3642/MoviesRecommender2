@@ -12,9 +12,11 @@ public class HelpCommand implements Command {
             "основываясь на твоих предпочтениях и мировых оценках пользователей и критиков!" +
             "Список доступных комманд:\n" +
             "/start - начало работы с ботом\n" +
+            "/recommend - получить рекомендацию\n" +
+            "/years - получить информацию о фильтре по году выпуска\n" +
             "/history - получить историю просмотров\n" +
             "/help - справка по доступным коммандам\n" +
-            "/stop - прекратить использование бота";
+            "/stop - прекратить использование бота\n";
 
     public HelpCommand(SendMessageBotService messageService) {
         this.messageService = messageService;

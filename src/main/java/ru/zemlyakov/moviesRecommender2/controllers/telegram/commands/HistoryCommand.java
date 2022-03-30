@@ -32,18 +32,12 @@ public class HistoryCommand implements Command {
 
         if (history.isEmpty()) {
             sb.append("Увы, твоя история пуста :(\n" +
-                    "Но ты можешь это исправить! Для того чтобы получить рекомендацию используй комманду ***");
+                    "Но ты можешь это исправить! Для того чтобы получить рекомендацию используй комманду /recommend");
         } else {
             for (Movie movie : history)
                 sb.append(movie.getTitle()).append("\n");
         }
-
         return sb.toString();
     }
 
-//    public void saveNewUser(Long chatId, String userName) {
-//        User newUser = new User(chatId, userName);
-//        System.out.println(newUser);
-//        userService.addNewUser(newUser);
-//    }
 }
