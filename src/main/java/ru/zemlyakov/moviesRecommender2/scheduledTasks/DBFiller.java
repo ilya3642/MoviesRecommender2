@@ -141,9 +141,11 @@ public class DBFiller {
 
         newGenres.stream()
                 .filter(s -> s.length() != 0)
+                .map(String::toLowerCase)
                 .map(Genre::new)
-                .forEach(g -> genresOfMovie.add(
-                                genreService.addNewGenre(g)
+                .forEach(genre ->
+                        genresOfMovie.add(
+                                genreService.getOrSave(genre)
                         )
                 );
 
