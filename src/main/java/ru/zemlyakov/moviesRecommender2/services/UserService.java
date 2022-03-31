@@ -20,6 +20,21 @@ public class UserService {
             userRepository.save(newUser);
     }
 
+    public void updateUserYear(User updatedUser){
+        userRepository.updateYearsFilter(
+                updatedUser.getMinYearOfCreateMovie(),
+                updatedUser.getMaxYearOfCreateMovie(),
+                updatedUser
+        );
+    }
+
+    public void updateUserPageDeep(User updatedUser){
+        userRepository.updatePageDeep(
+                updatedUser.getPageOfRecommend(),
+                updatedUser
+        );
+    }
+
     public User getUser(Long chatId) {
         Optional<User> userOptional =
                 userRepository.findByChatId(chatId);

@@ -39,7 +39,7 @@ public class FavoriteCommand implements Command {
                 FAVOURITE_TEXT,
                 GenreKeyboard.getListGenreButtons(
                         genres,
-                        new ArrayList<>(user.getFavouriteGenres()
+                        new ArrayList<>(user.getFavoriteGenres()
                         )
                 )
         );

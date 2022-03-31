@@ -51,7 +51,7 @@ public class Genre {
     private String genreName;
 
     @ManyToMany(
-            mappedBy = "favouriteGenres",
+            mappedBy = "favoriteGenres",
             fetch = FetchType.LAZY
     )
     private Set<User> usersLikeGenre;

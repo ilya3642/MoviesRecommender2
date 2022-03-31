@@ -63,12 +63,13 @@ public class YearsCommand implements Command {
                     user.setMinYearOfCreateMovie(minYear);
                     user.setMaxYearOfCreateMovie(maxYear);
                     user.refreshPageOfRecommend();
-                    userService.saveOrUpdate(user);
+                    userService.updateUserYear(user);
                 }
                 else throw new NumberFormatException("Неверный формат чисел");
             } catch (Exception ex){
-                messageService.sendMessage(chatId.toString(), "Данные введены некорректно:" +
-                        "Года должны быть не меньше 1899 и не больше текущего, а также минимальный год не может быть больше максимального");
+                messageService.sendMessage(chatId.toString(), "Данные введены некорректно: " +
+                        "Года должны быть не меньше 1899 и не больше текущего, " +
+                        "а также минимальный год не может быть больше максимального");
                 ex.printStackTrace();
             }
 

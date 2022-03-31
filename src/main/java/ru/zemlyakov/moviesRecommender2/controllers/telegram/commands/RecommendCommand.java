@@ -36,7 +36,7 @@ public class RecommendCommand implements Command {
         messageService.sendMessage(chatId.toString(), RECOMMEND_TEXT);
 
         List<Movie> recommendation = movieService.getRecommendation(user, user.getPageOfRecommend(), 3);
-        userService.saveOrUpdate(user);
+        userService.updateUserPageDeep(user);
 
         if (recommendation.isEmpty()) {
             messageService.sendMessage(

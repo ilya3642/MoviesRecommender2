@@ -1,6 +1,5 @@
 package ru.zemlyakov.moviesRecommender2.models;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -95,7 +94,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     @org.hibernate.annotations.Cache(usage = READ_WRITE)
-    private Set<Genre> favouriteGenres;
+    private Set<Genre> favoriteGenres;
 
     public User(long id, long chatId, String userName, short minYearOfCreateMovie, short maxYearOfCreateMovie) {
         this.id = id;
@@ -144,12 +143,12 @@ public class User {
         this.historyOfViewing = historyOfViewing;
     }
 
-    public Set<Genre> getFavouriteGenres() {
-        return favouriteGenres;
+    public Set<Genre> getFavoriteGenres() {
+        return favoriteGenres;
     }
 
-    public void setFavouriteGenres(Set<Genre> favouriteGenres) {
-        this.favouriteGenres = favouriteGenres;
+    public void setFavoriteGenres(Set<Genre> favouriteGenres) {
+        this.favoriteGenres = favouriteGenres;
     }
 
     public short getMinYearOfCreateMovie() {

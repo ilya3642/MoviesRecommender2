@@ -37,7 +37,7 @@ public class GenreCallback implements Callback {
         Long chatId = message.getChatId();
         User user = userService.getUserWithGenres(chatId);
         Genre newFavouriteGenre = genreService.getGenre(matcher.group());
-        Set<Genre> favouriteGenres = user.getFavouriteGenres();
+        Set<Genre> favouriteGenres = user.getFavoriteGenres();
 
         if (favouriteGenres.contains(newFavouriteGenre))
             favouriteGenres.remove(newFavouriteGenre);
@@ -51,7 +51,7 @@ public class GenreCallback implements Callback {
                 message.getMessageId(),
                 GenreKeyboard.getListGenreButtons(
                         genreService.getAllGenres(),
-                        new ArrayList<>(user.getFavouriteGenres())
+                        new ArrayList<>(user.getFavoriteGenres())
                 )
         );
 

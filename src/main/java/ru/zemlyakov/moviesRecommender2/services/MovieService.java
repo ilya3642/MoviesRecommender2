@@ -56,28 +56,28 @@ public class MovieService {
         PageRequest pageRequest = PageRequest.of(numPage, limit, Sort.by("rating.weightedAverage", "rating.ratingKinopoisk").descending());
         List<Movie> result;
 
-        if (!user.getHistoryOfViewing().isEmpty() && !user.getFavouriteGenres().isEmpty()) {
+        if (!user.getHistoryOfViewing().isEmpty() && !user.getFavoriteGenres().isEmpty()) {
             result = movieRepository.findDistinctByIdNotInAndGenreIdInAndYearOfCreateBetween(
                     user.getHistoryOfViewing().stream()
                             .map(Movie::getId)
                             .collect(Collectors.toList()),
-                    user.getFavouriteGenres().stream()
+                    user.getFavoriteGenres().stream()
                             .map(Genre::getId)
                             .collect(Collectors.toList()),
                     user.getMinYearOfCreateMovie(),
                     user.getMaxYearOfCreateMovie(),
                     pageRequest
             ).getContent();
-        } else if (user.getHistoryOfViewing().isEmpty() && !user.getFavouriteGenres().isEmpty()) {
+        } else if (user.getHistoryOfViewing().isEmpty() && !user.getFavoriteGenres().isEmpty()) {
             result = movieRepository.findDistinctByGenreIdInAndYearOfCreateBetween(
-                    user.getFavouriteGenres().stream()
+                    user.getFavoriteGenres().stream()
                             .map(Genre::getId)
                             .collect(Collectors.toList()),
                     user.getMinYearOfCreateMovie(),
                     user.getMaxYearOfCreateMovie(),
                     pageRequest
             ).getContent();
-        } else if (!user.getHistoryOfViewing().isEmpty() && user.getFavouriteGenres().isEmpty()) {
+        } else if (!user.getHistoryOfViewing().isEmpty() && user.getFavoriteGenres().isEmpty()) {
                 result = movieRepository.findDistinctByIdNotInAndYearOfCreateBetween(
                         user.getHistoryOfViewing().stream()
                                 .map(Movie::getId)
