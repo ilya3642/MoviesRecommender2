@@ -22,12 +22,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByChatIdAndGetFullInf(long chatId);
 
     @Transactional
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE User u SET u.minYearOfCreateMovie = ?1, u.maxYearOfCreateMovie =?2, u.pageOfRecommend = 0 where u=?3")
     void updateYearsFilter(short minYear, short maxYear, User updatedUser);
 
     @Transactional
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE User u SET u.pageOfRecommend = ?1 where u=?2")
     void updatePageDeep(int deep, User updatedUser);
 
