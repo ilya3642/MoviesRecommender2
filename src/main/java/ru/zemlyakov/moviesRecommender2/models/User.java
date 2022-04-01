@@ -71,7 +71,7 @@ public class User {
     private short maxYearOfCreateMovie = (short) LocalDate.now().getYear();
 
     @Column
-    int pageOfRecommend = 0;
+    int deepOfRecommend = 0;
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -167,12 +167,12 @@ public class User {
         this.maxYearOfCreateMovie = maxYearOfCreateMovie;
     }
 
-    public int getPageOfRecommend() {
-        return pageOfRecommend++;
+    public int getDeepOfRecommend() {
+        return deepOfRecommend++;
     }
 
     public void refreshPageOfRecommend() {
-        pageOfRecommend = 0;
+        deepOfRecommend = 0;
     }
 
 }

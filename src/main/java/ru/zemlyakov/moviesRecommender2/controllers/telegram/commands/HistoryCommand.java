@@ -10,6 +10,8 @@ import java.util.Set;
 public class HistoryCommand implements Command {
 
     private static final String HISTORY_TEXT = "Ниже представлена твоя история просмотра фильмов :) ";
+    private final String EMPTY_HISTORY = "Увы, твоя история пуста :(\n" +
+            "Но ты можешь это исправить! Для того чтобы получить рекомендацию используй комманду /recommend";
 
     private final SendMessageBotService messageService;
     private final UserService userService;
@@ -31,8 +33,7 @@ public class HistoryCommand implements Command {
         StringBuilder sb = new StringBuilder(HISTORY_TEXT).append("\n\n");
 
         if (history.isEmpty()) {
-            sb.append("Увы, твоя история пуста :(\n" +
-                    "Но ты можешь это исправить! Для того чтобы получить рекомендацию используй комманду /recommend");
+            sb.append(EMPTY_HISTORY);
         } else {
             for (Movie movie : history)
                 sb.append(movie.getTitle()).append("\n");

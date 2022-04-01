@@ -57,7 +57,7 @@ public class MovieCallback implements Callback {
                 );
 
         Movie newRecommendMovie =
-                movieService.getRecommendation(user, user.getPageOfRecommend()-1, 3).get(2);
+                movieService.getRecommendation(user, user.getDeepOfRecommend()-1, 3).get(2);
 
         messageService.sendMessage(
                 chatId.toString(),

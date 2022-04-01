@@ -17,6 +17,10 @@ public class YearsCommand implements Command {
             "Для изменения введи команду setyears и введи минимальный и максимальный года через пробел, например, так\n" +
             "setyears 1990 2022";
 
+    private static final String ILLEGAL_NUMBER_TEXT = "Данные введены некорректно: " +
+            "Года должны быть не меньше 1899 и не больше текущего, " +
+            "а также минимальный год не может быть больше максимального";
+
     public YearsCommand(
             SendMessageBotService messageService,
             UserService userService) {
@@ -67,9 +71,7 @@ public class YearsCommand implements Command {
                 }
                 else throw new NumberFormatException("Неверный формат чисел");
             } catch (Exception ex){
-                messageService.sendMessage(chatId.toString(), "Данные введены некорректно: " +
-                        "Года должны быть не меньше 1899 и не больше текущего, " +
-                        "а также минимальный год не может быть больше максимального");
+                messageService.sendMessage(chatId.toString(), ILLEGAL_NUMBER_TEXT);
                 ex.printStackTrace();
             }
 

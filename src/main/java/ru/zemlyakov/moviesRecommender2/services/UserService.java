@@ -28,9 +28,9 @@ public class UserService {
         );
     }
 
-    public void updateUserPageDeep(User updatedUser){
-        userRepository.updatePageDeep(
-                updatedUser.getPageOfRecommend(),
+    public void updateUserRecommendDeep(User updatedUser){
+        userRepository.updateRecommendDeep(
+                updatedUser.getDeepOfRecommend(),
                 updatedUser
         );
     }
