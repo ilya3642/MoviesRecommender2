@@ -3,7 +3,8 @@ package ru.zemlyakov.moviesRecommender2.controllers.telegram.keyboards.Callbacks
 public enum CallbackName {
 
     GENRE("GENRE"),
-    MOVIE("MV");
+    MOVIE("MV"),
+    HISTORY("HSTR");
 
     private final String callbackName;
 

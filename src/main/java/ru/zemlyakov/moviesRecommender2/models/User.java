@@ -33,7 +33,7 @@ public class User {
     @Column(
             name = "user_id"
     )
-    private long id;
+    private long userId;
 
     @Column(
             name = "chat_id",
@@ -96,8 +96,8 @@ public class User {
     @org.hibernate.annotations.Cache(usage = READ_WRITE)
     private Set<Genre> favoriteGenres;
 
-    public User(long id, long chatId, String userName, short minYearOfCreateMovie, short maxYearOfCreateMovie) {
-        this.id = id;
+    public User(long userId, long chatId, String userName, short minYearOfCreateMovie, short maxYearOfCreateMovie) {
+        this.userId = userId;
         this.chatId = chatId;
         this.userName = userName;
         this.minYearOfCreateMovie = minYearOfCreateMovie;
@@ -119,8 +119,8 @@ public class User {
     public User() {
     }
 
-    public long getId() {
-        return id;
+    public long getUserId() {
+        return userId;
     }
 
     public long getChatId() {

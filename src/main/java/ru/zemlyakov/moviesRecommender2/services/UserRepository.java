@@ -31,4 +31,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("UPDATE User u SET u.deepOfRecommend = ?1 where u=?2")
     void updateRecommendDeep(int deep, User updatedUser);
 
+
 }

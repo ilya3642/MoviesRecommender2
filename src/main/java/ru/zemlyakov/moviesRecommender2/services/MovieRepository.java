@@ -59,7 +59,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             Pageable pageable
     );
 
-    @Query("SELECT m FROM Movie m JOIN FETCH Genre g WHERE m.id IN ?1")
+    @Query("SELECT m FROM Movie m JOIN FETCH Genre g WHERE m.movieId IN ?1")
     Page<Movie> findAllByGenreIdIn(
             Collection<Long> genreId, Pageable pageable
     );

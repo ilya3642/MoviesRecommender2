@@ -31,7 +31,7 @@ public class Movie {
     @Column(
             name = "movie_id"
     )
-    private long id;
+    private long movieId;
 
     @Column(
             length = 128
@@ -94,7 +94,7 @@ public class Movie {
     @Column
     private String posterURL;
 
-    public Movie(long id,
+    public Movie(long movieId,
                  String title,
                  short yearOfCreate,
                  String description,
@@ -103,7 +103,7 @@ public class Movie {
                  String posterURL,
                  Set<Genre> genre,
                  Rating rating) {
-        this.id = id;
+        this.movieId = movieId;
         this.title = title;
         this.yearOfCreate = yearOfCreate;
         this.description = description;
@@ -140,8 +140,8 @@ public class Movie {
     public Movie() {
     }
 
-    public long getId() {
-        return id;
+    public long getMovieId() {
+        return movieId;
     }
 
     public String getTitle() {

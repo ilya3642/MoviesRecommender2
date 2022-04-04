@@ -37,7 +37,7 @@ public class MovieService {
 
         if (movieOptional.isPresent()) {
             updateMovie(
-                    movieOptional.get().getId(),
+                    movieOptional.get().getMovieId(),
                     newMovie.getTitle(),
                     newMovie.getYearOfCreate(),
                     newMovie.getDescription(),
@@ -59,7 +59,7 @@ public class MovieService {
         if (!user.getHistoryOfViewing().isEmpty() && !user.getFavoriteGenres().isEmpty()) {
             result = movieRepository.findDistinctByIdNotInAndGenreIdInAndYearOfCreateBetween(
                     user.getHistoryOfViewing().stream()
-                            .map(Movie::getId)
+                            .map(Movie::getMovieId)
                             .collect(Collectors.toList()),
                     user.getFavoriteGenres().stream()
                             .map(Genre::getId)
@@ -80,7 +80,7 @@ public class MovieService {
         } else if (!user.getHistoryOfViewing().isEmpty() && user.getFavoriteGenres().isEmpty()) {
                 result = movieRepository.findDistinctByIdNotInAndYearOfCreateBetween(
                         user.getHistoryOfViewing().stream()
-                                .map(Movie::getId)
+                                .map(Movie::getMovieId)
                                 .collect(Collectors.toList()),
                         user.getMinYearOfCreateMovie(),
                         user.getMaxYearOfCreateMovie(),

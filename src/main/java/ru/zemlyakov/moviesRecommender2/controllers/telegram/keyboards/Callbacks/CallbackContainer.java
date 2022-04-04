@@ -6,8 +6,7 @@ import ru.zemlyakov.moviesRecommender2.services.GenreService;
 import ru.zemlyakov.moviesRecommender2.services.MovieService;
 import ru.zemlyakov.moviesRecommender2.services.UserService;
 
-import static ru.zemlyakov.moviesRecommender2.controllers.telegram.keyboards.Callbacks.CallbackName.GENRE;
-import static ru.zemlyakov.moviesRecommender2.controllers.telegram.keyboards.Callbacks.CallbackName.MOVIE;
+import static ru.zemlyakov.moviesRecommender2.controllers.telegram.keyboards.Callbacks.CallbackName.*;
 
 public class CallbackContainer {
 
@@ -18,14 +17,16 @@ public class CallbackContainer {
             UserService userService,
             MovieService movieService,
             GenreService genreService) {
+
         callbackMap = ImmutableMap.<String, Callback>builder()
-                    .put(GENRE.getCallbackName(), new GenreCallback(sendMessageBotService, userService, genreService))
+                .put(GENRE.getCallbackName(), new GenreCallback(sendMessageBotService, userService, genreService))
                 .put(MOVIE.getCallbackName(), new MovieCallback(sendMessageBotService, userService, movieService))
+                .put(HISTORY.getCallbackName(), new HistoryCallback(sendMessageBotService, userService, genreService))
                 .build();
 
     }
 
-    public Callback extractHandler(String handlerIdentifier){
+    public Callback extractHandler(String handlerIdentifier) {
         return callbackMap.get(handlerIdentifier);
     }
 
