@@ -19,6 +19,8 @@ import java.util.regex.Pattern;
 public class HistoryCallback implements Callback {
 
     private static final String HISTORY_TEXT = "Ниже представлена твоя история просмотра фильмов :)\n";
+    private static final String EMPTY_HISTORY = "Увы, твоя история пуста :(\n" +
+            "Но ты можешь это исправить! Для того чтобы получить рекомендацию используй комманду /recommend";
 
     private final SendMessageBotService messageService;
     private final UserService userService;
@@ -54,26 +56,34 @@ public class HistoryCallback implements Callback {
             return;
         }
 
-        if (!needToRefreshNumPage){
+        if (!needToRefreshNumPage) {
             numOfPage = Integer.parseInt(historyParameters[1]);
         }
 
         User user = userService.getUser(chatId);
-        List<Movie> history = userService.getMovieFromUserHistory(user, numOfPage - 1);
-        int historySize = userService.getHistorySize(user);
-        Movie movie = history.get(0);
 
         messageService.deleteMessage(
                 chatId.toString(),
                 message.getMessageId()
         );
 
-        messageService.sendMessage(
-                chatId.toString(),
-                HISTORY_TEXT + movie.toShortRepresent(),
-                HistoryKeyboard.getListHistoryButtons(movie, numOfPage, historySize)
-        );
+        int historySize = userService.getHistorySize(user);
 
+        if (historySize == 0) {
+            messageService.sendMessage(
+                    chatId.toString(),
+                    EMPTY_HISTORY
+            );
+        } else {
+            List<Movie> history = userService.getMovieFromUserHistory(user, numOfPage - 1);
+            Movie movie = history.get(0);
+
+            messageService.sendMessage(
+                    chatId.toString(),
+                    HISTORY_TEXT + movie.toShortRepresent(),
+                    HistoryKeyboard.getListHistoryButtons(movie, numOfPage, historySize)
+            );
+        }
     }
 
 
