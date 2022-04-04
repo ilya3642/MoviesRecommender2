@@ -28,7 +28,7 @@ final public class MovieKeyboard {
     public static List<List<InlineKeyboardButton>> getListMovieButtons(Movie movie) {
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 
-        String titleForCallbackData = movie.getTitle().length() < 23 ? movie.getTitle() : movie.getOriginalTitle();
+        String titleForCallbackData = movie.getTitle().length() < 24 ? movie.getTitle() : movie.getOriginalTitle();
 
         keyboard.add(new ArrayList<>(
                         List.of(

@@ -107,12 +107,14 @@ public class DBFiller {
         }
 
         Float metacriticRating = 0f;
+
         String originalTitle = root.get("nameOriginal").toString();
         if (!originalTitle.equals("null")) {
             metacriticRating = sendMetacriticRequest(originalTitle);
             if (originalTitle.length()>53)
                 originalTitle = new StringBuilder(originalTitle).delete(51,originalTitle.length()-1).append("...").toString();
         }
+
 
         Rating ratingOfNewMovie = new Rating(
                 root.get("ratingKinopoisk").floatValue(),
@@ -125,9 +127,14 @@ public class DBFiller {
             throw new IllegalStateException("Movie dont have enough userscore");
         }
 
+        String russianTitle = root.get("nameRu").toString();
+
+        if (russianTitle.length()>24 && (originalTitle.equals("null") || originalTitle.length() > 55))
+            throw new IllegalStateException("Movie dont have simple title");
+
         String webURL = root.get("webUrl").toString();
         Movie newMovie = new Movie(
-                root.get("nameRu").toString(),
+                russianTitle,
                 (short) root.get("year").asInt(),
                 description,
                 webURL.substring(1, webURL.length() - 1)

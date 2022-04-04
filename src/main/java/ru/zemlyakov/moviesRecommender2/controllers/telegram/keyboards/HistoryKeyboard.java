@@ -95,7 +95,7 @@ public class HistoryKeyboard {
                 )
         );
 
-        String titleForCallbackData = currMovie.getTitle().length() < 23 ? currMovie.getTitle() : currMovie.getOriginalTitle();
+        String titleForCallbackData = currMovie.getTitle().length() < 24 ? currMovie.getTitle() : currMovie.getOriginalTitle();
 
         keyboard.add(
                 new ArrayList<>(
