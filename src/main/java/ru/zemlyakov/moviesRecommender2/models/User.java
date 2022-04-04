@@ -73,16 +73,12 @@ public class User {
     @Column
     int deepOfRecommend = 0;
 
-    @ManyToMany(
+    @OneToMany(
             fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}
+            cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
+            mappedBy = "user"
     )
-    @JoinTable(
-            name = "MR_User_seen_movie",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id")
-    )
-    private Set<Movie> historyOfViewing;
+    private Set<UserWatchMovie> historyOfViewing;
 
     @ManyToMany(
             cascade = {CascadeType.MERGE, CascadeType.REFRESH},
@@ -135,11 +131,11 @@ public class User {
         this.userName = userName;
     }
 
-    public Set<Movie> getHistoryOfViewing() {
+    public Set<UserWatchMovie> getHistoryOfViewing() {
         return historyOfViewing;
     }
 
-    public void setHistoryOfViewing(Set<Movie> historyOfViewing) {
+    public void setHistoryOfViewing(Set<UserWatchMovie> historyOfViewing) {
         this.historyOfViewing = historyOfViewing;
     }
 

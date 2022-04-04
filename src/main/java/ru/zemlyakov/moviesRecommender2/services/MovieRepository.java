@@ -37,14 +37,14 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             Pageable pageable
     );
 
-    Page<Movie> findDistinctByIdNotInAndYearOfCreateBetween(
+    Page<Movie> findDistinctByMovieIdNotInAndYearOfCreateBetween(
             Collection<Long> movieId,
             short minYear,
             short maxYear,
             Pageable pageable
     );
 
-    Page<Movie> findDistinctByIdNotInAndGenreIdInAndYearOfCreateBetween(
+    Page<Movie> findDistinctByMovieIdNotInAndGenreIdInAndYearOfCreateBetween(
             Collection<Long> movieId,
             Collection<Long> genreId,
             short minYear,

@@ -21,7 +21,7 @@ public class CallbackContainer {
         callbackMap = ImmutableMap.<String, Callback>builder()
                 .put(GENRE.getCallbackName(), new GenreCallback(sendMessageBotService, userService, genreService))
                 .put(MOVIE.getCallbackName(), new MovieCallback(sendMessageBotService, userService, movieService))
-                .put(HISTORY.getCallbackName(), new HistoryCallback(sendMessageBotService, userService, genreService))
+//                .put(HISTORY.getCallbackName(), new HistoryCallback(sendMessageBotService, userService, genreService))
                 .build();
 
     }

@@ -6,9 +6,13 @@ import ru.zemlyakov.moviesRecommender2.controllers.telegram.keyboards.MovieKeybo
 import ru.zemlyakov.moviesRecommender2.controllers.telegram.telegramServices.SendMessageBotService;
 import ru.zemlyakov.moviesRecommender2.models.Movie;
 import ru.zemlyakov.moviesRecommender2.models.User;
+import ru.zemlyakov.moviesRecommender2.models.UserWatchMovie;
 import ru.zemlyakov.moviesRecommender2.services.MovieService;
 import ru.zemlyakov.moviesRecommender2.services.UserService;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
 public class MovieCallback implements Callback {
@@ -48,7 +52,7 @@ public class MovieCallback implements Callback {
             );
         }
 
-        user.getHistoryOfViewing().add(movieHasBeenWatched);
+        user.getHistoryOfViewing().add(new UserWatchMovie(user, movieHasBeenWatched, LocalDateTime.now()));
         userService.saveOrUpdate(user);
 
         messageService.deleteMessage(

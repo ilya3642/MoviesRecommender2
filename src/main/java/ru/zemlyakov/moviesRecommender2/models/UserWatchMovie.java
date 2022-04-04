@@ -1,9 +1,10 @@
 package ru.zemlyakov.moviesRecommender2.models;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "mr_user_watch_movie")
 public class UserWatchMovie {
 
     @EmbeddedId
@@ -19,9 +20,10 @@ public class UserWatchMovie {
     @JoinColumn(name = "movie_id")
     Movie movie;
 
-    Timestamp dateTimeToWatched;
+    LocalDateTime dateTimeToWatched;
 
-    public UserWatchMovie(User user, Movie movie, Timestamp dateTimeToWatched) {
+    public UserWatchMovie(User user, Movie movie, LocalDateTime dateTimeToWatched) {
+        this.id = new UserWatchMovieId(user.getUserId(), movie.getMovieId());
         this.user = user;
         this.movie = movie;
         this.dateTimeToWatched = dateTimeToWatched;
@@ -29,5 +31,17 @@ public class UserWatchMovie {
 
     public UserWatchMovie() {
 
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public LocalDateTime getDateTimeToWatched() {
+        return dateTimeToWatched;
     }
 }

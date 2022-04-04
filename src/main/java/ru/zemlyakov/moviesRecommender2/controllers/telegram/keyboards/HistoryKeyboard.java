@@ -92,19 +92,19 @@ public class HistoryKeyboard {
 
         
 
-        String titleForCallbackData = movie.getTitle().length() < 23 ? movie.getTitle() : movie.getOriginalTitle();
-
-        keyboard.add(
-                new ArrayList<>(
-                        List.of(
-                                new MovieKeyboard.AlwaysViewButton(
-                                        titleForCallbackData,
-                                        movie.getYearOfCreate()
-                                ),
-                                new MovieKeyboard.LinkToKPButton(movie.getWebURL())
-                        )
-                )
-        );
+//        String titleForCallbackData = movie.getTitle().length() < 23 ? movie.getTitle() : movie.getOriginalTitle();
+//
+//        keyboard.add(
+//                new ArrayList<>(
+//                        List.of(
+//                                new MovieKeyboard.AlwaysViewButton(
+//                                        titleForCallbackData,
+//                                        movie.getYearOfCreate()
+//                                ),
+//                                new MovieKeyboard.LinkToKPButton(movie.getWebURL())
+//                        )
+//                )
+//        );
 
         return keyboard;
     }

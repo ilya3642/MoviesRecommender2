@@ -3,6 +3,7 @@ package ru.zemlyakov.moviesRecommender2.models;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class UserWatchMovieId implements Serializable {
@@ -41,5 +42,18 @@ public class UserWatchMovieId implements Serializable {
 
     public void setMovieId(Long movieId) {
         this.movieId = movieId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserWatchMovieId that = (UserWatchMovieId) o;
+        return userId.equals(that.userId) && movieId.equals(that.movieId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, movieId);
     }
 }

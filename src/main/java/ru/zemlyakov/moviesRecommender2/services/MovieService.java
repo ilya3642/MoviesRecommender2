@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.zemlyakov.moviesRecommender2.models.Genre;
-import ru.zemlyakov.moviesRecommender2.models.Movie;
-import ru.zemlyakov.moviesRecommender2.models.Rating;
-import ru.zemlyakov.moviesRecommender2.models.User;
+import ru.zemlyakov.moviesRecommender2.models.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -57,8 +54,9 @@ public class MovieService {
         List<Movie> result;
 
         if (!user.getHistoryOfViewing().isEmpty() && !user.getFavoriteGenres().isEmpty()) {
-            result = movieRepository.findDistinctByIdNotInAndGenreIdInAndYearOfCreateBetween(
+            result = movieRepository.findDistinctByMovieIdNotInAndGenreIdInAndYearOfCreateBetween(
                     user.getHistoryOfViewing().stream()
+                            .map(UserWatchMovie::getMovie)
                             .map(Movie::getMovieId)
                             .collect(Collectors.toList()),
                     user.getFavoriteGenres().stream()
@@ -78,8 +76,9 @@ public class MovieService {
                     pageRequest
             ).getContent();
         } else if (!user.getHistoryOfViewing().isEmpty() && user.getFavoriteGenres().isEmpty()) {
-                result = movieRepository.findDistinctByIdNotInAndYearOfCreateBetween(
+                result = movieRepository.findDistinctByMovieIdNotInAndYearOfCreateBetween(
                         user.getHistoryOfViewing().stream()
+                                .map(UserWatchMovie::getMovie)
                                 .map(Movie::getMovieId)
                                 .collect(Collectors.toList()),
                         user.getMinYearOfCreateMovie(),
@@ -98,6 +97,13 @@ public class MovieService {
 
             return result;
     }
+
+//    public Movie getMovieFromUserHistory(Long chatId, int numOfMovie){
+//        PageRequest pageRequest = PageRequest.of(numOfMovie+1, 1, Sort.by("dateTimeToWatched").descending());
+//
+//        return movieRepository.findBy
+//
+//    }
 
     public Movie getMovie(Long id) {
         Optional<Movie> optionalMovie = movieRepository.findById(id);

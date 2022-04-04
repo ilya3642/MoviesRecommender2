@@ -5,7 +5,7 @@ import ru.zemlyakov.moviesRecommender2.controllers.telegram.telegramServices.Sen
 import ru.zemlyakov.moviesRecommender2.models.Movie;
 import ru.zemlyakov.moviesRecommender2.services.UserService;
 
-import java.util.Set;
+import java.util.List;
 
 public class HistoryCommand implements Command {
 
@@ -29,7 +29,7 @@ public class HistoryCommand implements Command {
     }
 
     private String getHistory(long chatId) {
-        Set<Movie> history = userService.getUserWithHistory(chatId).getHistoryOfViewing();
+        List<Movie> history = userService.getMovieFromUserHistory(chatId,0);
         StringBuilder sb = new StringBuilder(HISTORY_TEXT).append("\n\n");
 
         if (history.isEmpty()) {

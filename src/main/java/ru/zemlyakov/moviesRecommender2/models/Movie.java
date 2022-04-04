@@ -83,12 +83,11 @@ public class Movie {
     @Embedded
     private Rating rating;
 
-    @ManyToMany(
-            mappedBy = "historyOfViewing",
+    @OneToMany(
+            mappedBy = "movie",
             fetch = FetchType.LAZY
     )
-    private Set<User> usersSeenThisFilm;
-
+    private Set<UserWatchMovie> usersSeenThisFilm;
 
     @NotBlank
     @Column
