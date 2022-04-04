@@ -29,6 +29,13 @@ public class UserWatchMovie {
         this.dateTimeToWatched = dateTimeToWatched;
     }
 
+    public UserWatchMovie(User user, Movie movie) {
+        this.id = new UserWatchMovieId(user.getUserId(), movie.getMovieId());
+        this.user = user;
+        this.movie = movie;
+    }
+
+
     public UserWatchMovie() {
 
     }

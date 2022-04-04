@@ -3,11 +3,14 @@ package ru.zemlyakov.moviesRecommender2.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import ru.zemlyakov.moviesRecommender2.models.Movie;
 import ru.zemlyakov.moviesRecommender2.models.User;
 import ru.zemlyakov.moviesRecommender2.models.UserWatchMovie;
 import ru.zemlyakov.moviesRecommender2.models.UserWatchMovieId;
+
+import javax.transaction.Transactional;
 
 public interface UserWatchMovieRepository extends JpaRepository<UserWatchMovie, UserWatchMovieId> {
 
@@ -16,5 +19,11 @@ public interface UserWatchMovieRepository extends JpaRepository<UserWatchMovie, 
             User user,
             Pageable pageable
     );
+
+    int countByUserEquals(User user);
+
+    @Transactional
+    @Modifying
+    void deleteByUserAndMovie(User user, Movie movie);
 
 }

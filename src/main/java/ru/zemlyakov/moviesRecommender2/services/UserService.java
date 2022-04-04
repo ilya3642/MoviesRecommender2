@@ -8,6 +8,7 @@ import ru.zemlyakov.moviesRecommender2.models.Movie;
 import ru.zemlyakov.moviesRecommender2.models.User;
 import ru.zemlyakov.moviesRecommender2.models.UserWatchMovie;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,6 +44,10 @@ public class UserService {
         );
     }
 
+    public int getHistorySize(User user){
+        return userWatchMovieRepository.countByUserEquals(user);
+    }
+
     public User getUser(Long chatId) {
         Optional<User> userOptional =
                 userRepository.findByChatId(chatId);
@@ -52,13 +57,13 @@ public class UserService {
             return userOptional.get();
     }
 
-    public List<Movie> getMovieFromUserHistory(Long chatId, int numOfMovie) {
-        Optional<User> optionalUser = userRepository.findByChatId(chatId);
-        if (optionalUser.isPresent()) {
-            PageRequest pageRequest = PageRequest.of(numOfMovie, 1, Sort.by("dateTimeToWatched").descending());
-            return userWatchMovieRepository.getMovieFromUserHistory(optionalUser.get(), pageRequest).getContent();
-        }
-        else throw new IllegalStateException("User not already be taken");
+    public List<Movie> getMovieFromUserHistory(User user, int numOfMovie) {
+        PageRequest pageRequest = PageRequest.of(numOfMovie, 1, Sort.by("dateTimeToWatched").descending());
+        return userWatchMovieRepository.getMovieFromUserHistory(user, pageRequest).getContent();
+    }
+
+    public void deleteMovieFromHistory(User user, Movie movie){
+        userWatchMovieRepository.deleteByUserAndMovie(user, movie);
     }
 
     public User getUserWithHistory(Long chatId) {

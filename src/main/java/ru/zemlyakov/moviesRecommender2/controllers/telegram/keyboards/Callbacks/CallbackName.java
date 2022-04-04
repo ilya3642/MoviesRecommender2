@@ -4,7 +4,7 @@ public enum CallbackName {
 
     GENRE("GENRE"),
     MOVIE("MV"),
-    HISTORY("HSTR");
+    HISTORY("HST");
 
     private final String callbackName;
 

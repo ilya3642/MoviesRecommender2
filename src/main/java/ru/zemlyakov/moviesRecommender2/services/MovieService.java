@@ -98,13 +98,6 @@ public class MovieService {
             return result;
     }
 
-//    public Movie getMovieFromUserHistory(Long chatId, int numOfMovie){
-//        PageRequest pageRequest = PageRequest.of(numOfMovie+1, 1, Sort.by("dateTimeToWatched").descending());
-//
-//        return movieRepository.findBy
-//
-//    }
-
     public Movie getMovie(Long id) {
         Optional<Movie> optionalMovie = movieRepository.findById(id);
         if (optionalMovie.isEmpty()) {

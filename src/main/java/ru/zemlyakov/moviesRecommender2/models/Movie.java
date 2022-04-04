@@ -113,21 +113,6 @@ public class Movie {
         this.rating = rating;
     }
 
-//    public Movie(String title, short yearOfCreate, String description, Set<Genre> genre) {
-//        this.title = title;
-//        this.genre = genre;
-//        this.yearOfCreate = yearOfCreate;
-//        this.description = description;
-//    }
-//
-//    public Movie(String title, short yearOfCreate, String description, Set<Genre> genre, Rating rating) {
-//        this.title = title;
-//        this.genre = genre;
-//        this.yearOfCreate = yearOfCreate;
-//        this.description = description;
-//        this.rating = rating;
-//    }
-
     public Movie(String title, short yearOfCreate, String description, String webURL) {
         this.title = title;
         this.yearOfCreate = yearOfCreate;
@@ -251,6 +236,17 @@ public class Movie {
 
     }
 
+    public String toShortRepresent() {
+
+        return String.format("\n*%s, %d*" +
+                        "[.](" + posterURL + ")\n\n" +
+                        "_%s_",
+                title,
+                yearOfCreate,
+                description
+        );
+
+    }
 
 }
 

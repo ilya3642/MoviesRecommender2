@@ -10,18 +10,18 @@ import java.util.List;
 public class HistoryKeyboard {
 
     private static class LinkToBack extends InlineKeyboardButton {
-        public LinkToBack(int numPage) {
+        public LinkToBack(int numOfPage) {
             super();
             setText("⬅");
-            setCallbackData("HSTR^" + numPage);
+            setCallbackData("HST^" + numOfPage);
         }
     }
 
     private static class LinkToNext extends InlineKeyboardButton {
-        public LinkToNext(int numPage) {
+        public LinkToNext(int numOfPage) {
             super();
             setText("➡");
-            setCallbackData("HSTR^"+numPage);
+            setCallbackData("HST^" + numOfPage);
         }
     }
 
@@ -29,15 +29,15 @@ public class HistoryKeyboard {
         public LinkToFirst() {
             super();
             setText("1");
-            setCallbackData("HSTR^1");
+            setCallbackData("HST^1");
         }
     }
 
     private static class LinkToLast extends InlineKeyboardButton {
         public LinkToLast(int countMovie) {
             super();
-            setText("Страница в КП");
-            setCallbackData("HSTR^" + countMovie);
+            setText(String.valueOf(countMovie));
+            setCallbackData("HST^" + countMovie);
         }
     }
 
@@ -45,6 +45,7 @@ public class HistoryKeyboard {
         public CounterPage(int currPage) {
             super();
             setText(String.valueOf(currPage));
+            setCallbackData("HST^-1");
         }
     }
 
@@ -52,31 +53,35 @@ public class HistoryKeyboard {
         public DeleteFromHistory(@Nullable String title, short yearOfCreate) {
             super();
             setText("Удалить из истории");
-            setCallbackData("HSTR^" + title + "^" + yearOfCreate);
+            setCallbackData("HST^" + title + "^" + yearOfCreate);
         }
     }
 
     private static class CloseHistory extends InlineKeyboardButton {
-        public CloseHistory(@Nullable String title, short yearOfCreate) {
+        public CloseHistory() {
             super();
-            setText("Удалить из истории");
-            setCallbackData("HSTR^" + title + "^" + yearOfCreate);
+            setText("Закрыть историю");
+            setCallbackData("HST^close");
         }
     }
 
-    public static List<List<InlineKeyboardButton>> getListHistoryButtons(int currPage, int maxPage) {
+    public static List<List<InlineKeyboardButton>> getListHistoryButtons(
+            Movie currMovie,
+            int currPage,
+            int maxPage) {
+
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 
         int backPage;
-        if (currPage == 0)
-            backPage = 0;
+        if (currPage == 1) {
+            backPage = 1;
+        }
         else backPage = currPage - 1;
 
         int nextPage;
         if (currPage == maxPage)
             nextPage = currPage;
         else nextPage = currPage + 1;
-
 
         keyboard.add(
                 new ArrayList<>(
@@ -90,21 +95,26 @@ public class HistoryKeyboard {
                 )
         );
 
-        
+        String titleForCallbackData = currMovie.getTitle().length() < 23 ? currMovie.getTitle() : currMovie.getOriginalTitle();
 
-//        String titleForCallbackData = movie.getTitle().length() < 23 ? movie.getTitle() : movie.getOriginalTitle();
-//
-//        keyboard.add(
-//                new ArrayList<>(
-//                        List.of(
-//                                new MovieKeyboard.AlwaysViewButton(
-//                                        titleForCallbackData,
-//                                        movie.getYearOfCreate()
-//                                ),
-//                                new MovieKeyboard.LinkToKPButton(movie.getWebURL())
-//                        )
-//                )
-//        );
+        keyboard.add(
+                new ArrayList<>(
+                        List.of(
+                                new HistoryKeyboard.DeleteFromHistory(
+                                        titleForCallbackData,
+                                        currMovie.getYearOfCreate()
+                                )
+                        )
+                )
+        );
+
+        keyboard.add(
+                new ArrayList<>(
+                        List.of(
+                                new HistoryKeyboard.CloseHistory()
+                        )
+                )
+        );
 
         return keyboard;
     }
