@@ -3,12 +3,9 @@ package ru.zemlyakov.moviesRecommender2.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.zemlyakov.moviesRecommender2.models.Movie;
-import ru.zemlyakov.moviesRecommender2.models.User;
 
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -57,11 +54,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             short minYear,
             short maxYear,
             Pageable pageable
-    );
-
-    @Query("SELECT m FROM Movie m JOIN FETCH Genre g WHERE m.movieId IN ?1")
-    Page<Movie> findAllByGenreIdIn(
-            Collection<Long> genreId, Pageable pageable
     );
 
 }

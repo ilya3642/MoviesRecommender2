@@ -11,8 +11,6 @@ import ru.zemlyakov.moviesRecommender2.services.UserService;
 
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class GenreCallback implements Callback {
 

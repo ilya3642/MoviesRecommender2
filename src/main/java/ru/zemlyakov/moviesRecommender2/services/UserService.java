@@ -6,12 +6,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.zemlyakov.moviesRecommender2.models.Movie;
 import ru.zemlyakov.moviesRecommender2.models.User;
-import ru.zemlyakov.moviesRecommender2.models.UserWatchMovie;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {

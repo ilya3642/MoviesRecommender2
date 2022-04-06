@@ -1,7 +1,6 @@
 package ru.zemlyakov.moviesRecommender2.controllers.telegram.commands;
 
 import com.google.common.collect.ImmutableMap;
-import org.springframework.stereotype.Component;
 import ru.zemlyakov.moviesRecommender2.controllers.telegram.telegramServices.SendMessageBotService;
 import ru.zemlyakov.moviesRecommender2.services.GenreService;
 import ru.zemlyakov.moviesRecommender2.services.MovieService;
@@ -9,7 +8,6 @@ import ru.zemlyakov.moviesRecommender2.services.UserService;
 
 import static ru.zemlyakov.moviesRecommender2.controllers.telegram.commands.CommandName.*;
 
-@Component
 public class CommandContainer {
 
     private final ImmutableMap<String, Command> commandsMap;

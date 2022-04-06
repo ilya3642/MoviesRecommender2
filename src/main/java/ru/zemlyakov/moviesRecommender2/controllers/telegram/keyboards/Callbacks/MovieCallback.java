@@ -10,8 +10,6 @@ import ru.zemlyakov.moviesRecommender2.models.UserWatchMovie;
 import ru.zemlyakov.moviesRecommender2.services.MovieService;
 import ru.zemlyakov.moviesRecommender2.services.UserService;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 

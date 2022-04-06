@@ -98,14 +98,6 @@ public class MovieService {
             return result;
     }
 
-    public Movie getMovie(Long id) {
-        Optional<Movie> optionalMovie = movieRepository.findById(id);
-        if (optionalMovie.isEmpty()) {
-            throw new IllegalStateException("No movie with this id = " + id);
-        }
-        return optionalMovie.get();
-    }
-
     public Movie getMovie(String title, short yearOfCreate) {
         Optional<Movie> optionalMovie =
                 movieRepository.findByTitleAndYearOfCreate(
@@ -130,13 +122,6 @@ public class MovieService {
                     originalTitle + ", yearOfCreate = " + yearOfCreate);
         }
         return optionalMovie.get();
-    }
-
-    public void deleteMovie(Long id) {
-        boolean exists = movieRepository.existsById(id);
-        if (!exists)
-            throw new IllegalStateException("Movie with id = " + id + " does not exists!");
-        movieRepository.deleteById(id);
     }
 
     @Transactional

@@ -3,16 +3,12 @@ package ru.zemlyakov.moviesRecommender2.controllers.telegram.keyboards.Callbacks
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.zemlyakov.moviesRecommender2.controllers.telegram.keyboards.HistoryKeyboard;
-import ru.zemlyakov.moviesRecommender2.controllers.telegram.keyboards.MovieKeyboard;
 import ru.zemlyakov.moviesRecommender2.controllers.telegram.telegramServices.SendMessageBotService;
 import ru.zemlyakov.moviesRecommender2.models.Movie;
 import ru.zemlyakov.moviesRecommender2.models.User;
-import ru.zemlyakov.moviesRecommender2.models.UserWatchMovie;
-import ru.zemlyakov.moviesRecommender2.services.GenreService;
 import ru.zemlyakov.moviesRecommender2.services.MovieService;
 import ru.zemlyakov.moviesRecommender2.services.UserService;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Pattern;
 
