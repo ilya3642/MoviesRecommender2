@@ -31,12 +31,17 @@ public class GenreCallback implements Callback {
     @Override
     public void handle(CallbackQuery callbackQuery) {
         Message message = callbackQuery.getMessage();
-        Matcher matcher = Pattern.compile("(?U)[\\w]+").matcher(callbackQuery.getData());
-        matcher.find();
-        matcher.find();
+        String callbackData = callbackQuery.getData();
+        StringBuilder genreName = new StringBuilder(callbackData);
+        genreName.delete(0, 6);
+
+        if (callbackData.contains("✅")) {
+            genreName.delete(genreName.length() - 2, genreName.length());
+        }
+
+        Genre newFavouriteGenre = genreService.getGenre(genreName.toString());
         Long chatId = message.getChatId();
         User user = userService.getUserWithGenres(chatId);
-        Genre newFavouriteGenre = genreService.getGenre(matcher.group());
         Set<Genre> favouriteGenres = user.getFavoriteGenres();
 
         if (favouriteGenres.contains(newFavouriteGenre))
