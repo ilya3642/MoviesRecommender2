@@ -15,15 +15,23 @@ import ru.zemlyakov.moviesRecommender2.services.UserService;
 @Controller
 public class TelegramBot extends TelegramLongPollingBot {
 
+    private final String botName;
+    private final String botToken;
+
     private final CommandContainer commandContainer;
     private final CallbackContainer callbackContainer;
 
     @Autowired
-    TelegramBot(UserService userService,
-                MovieService movieService,
-                GenreService genreService
-                ) {
+    TelegramBot(
+            @Value("${bot.name}") String botName,
+            @Value("${bot.token}") String botToken,
+            UserService userService,
+            MovieService movieService,
+            GenreService genreService
+    ) {
         super();
+        this.botName = botName;
+        this.botToken = botToken;
         this.commandContainer = new CommandContainer(
                 new SendMessageBotServiceImpl(this),
                 userService,
@@ -38,10 +46,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
-    @Value("${bot.name}")
-    private String botName;
-    @Value("${bot.token}")
-    private String botToken;
 
     @Override
     public String getBotUsername() {

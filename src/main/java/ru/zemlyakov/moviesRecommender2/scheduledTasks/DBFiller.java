@@ -29,38 +29,45 @@ import java.util.Set;
 @EnableScheduling
 public class DBFiller {
 
+    private long movieId;
+    private final String kinopoiskAPI;
+    private final String keyAPI;
+    private final String metacriticURL;
+
     private final RestTemplate restTemplate;
     private final ObjectMapper mapper;
     private HttpEntity<String> request;
     private final MovieService movieService;
     private final GenreService genreService;
 
-    @Value("${start.movie.id}")
-    private long movieId;
-
-    @Value("${kinopoisk.key}")
-    private String APIKey;
-
-    private static final String KINOPOISK_API = "https://kinopoiskapiunofficial.tech/api/v2.2/films/";
-    private static final String METACRITIC_URL = "https://www.metacritic.com/movie/%s/critic-reviews";
-
     @Autowired
-    public DBFiller(MovieService movieService, GenreService genreService) {
+    public DBFiller(
+            @Value("${start.movie.id}") long movieId,
+            @Value("${kinopoisk.key}") String keyAPI,
+            @Value("${kinopoisk.api}") String kinopoiskAPI,
+            @Value("${metacritic.url}") String metacriticURL,
+            MovieService movieService,
+            GenreService genreService
+    ) {
+        this.movieId = movieId;
+        this.kinopoiskAPI = kinopoiskAPI;
+        this.keyAPI = keyAPI;
+        this.metacriticURL = metacriticURL;
         restTemplate = new RestTemplate();
         mapper = new ObjectMapper();
         this.movieService = movieService;
         this.genreService = genreService;
     }
 
-    public String getAPIKey() {
-        return APIKey;
+    public String getKeyAPI() {
+        return keyAPI;
     }
 
     @PostConstruct
     private void buildDBFiller() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("X-API-KEY", APIKey);
+        headers.add("X-API-KEY", keyAPI);
         request = new HttpEntity<>("body", headers);
     }
 
@@ -81,7 +88,7 @@ public class DBFiller {
 
     private JsonNode sendKinopoiskRequest() throws JsonProcessingException {
         ResponseEntity<String> response = restTemplate.exchange(
-                KINOPOISK_API + movieId++,
+                kinopoiskAPI + movieId++,
                 HttpMethod.GET,
                 request,
                 String.class
@@ -110,8 +117,8 @@ public class DBFiller {
         String originalTitle = root.get("nameOriginal").toString();
         if (!originalTitle.equals("null")) {
             metacriticRating = sendMetacriticRequest(originalTitle);
-            if (originalTitle.length()>53)
-                originalTitle = new StringBuilder(originalTitle).delete(51,originalTitle.length()-1).append("...").toString();
+            if (originalTitle.length() > 53)
+                originalTitle = new StringBuilder(originalTitle).delete(51, originalTitle.length() - 1).append("...").toString();
         }
 
 
@@ -128,7 +135,7 @@ public class DBFiller {
 
         String russianTitle = root.get("nameRu").toString();
 
-        if (russianTitle.length()>24 && (originalTitle.equals("null") || originalTitle.length() > 55))
+        if (russianTitle.length() > 24 && (originalTitle.equals("null") || originalTitle.length() > 55))
             throw new IllegalStateException("Movie dont have simple title");
 
         String webURL = root.get("webUrl").toString();
@@ -173,7 +180,7 @@ public class DBFiller {
 
         try {
             Document document = Jsoup
-                    .connect(String.format(METACRITIC_URL, formatTitle))
+                    .connect(String.format(metacriticURL, formatTitle))
                     .userAgent("Chrome/79.0.3945.117")
                     .get();
 
