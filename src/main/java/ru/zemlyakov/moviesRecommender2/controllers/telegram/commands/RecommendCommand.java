@@ -32,7 +32,7 @@ public class RecommendCommand implements Command {
     @Override
     public void execute(Update update) {
         Long chatId = update.getMessage().getChatId();
-        User user = userService.getUserWithFullInf(chatId);
+        User user = userService.getUserWithHistory(chatId);
         messageService.sendMessage(chatId.toString(), RECOMMEND_TEXT);
 
         List<Movie> recommendation = movieService.getRecommendation(user, user.getDeepOfRecommend(), 3);

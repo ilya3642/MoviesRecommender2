@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.zemlyakov.moviesRecommender2.models.Movie;
 import ru.zemlyakov.moviesRecommender2.models.User;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ public class UserService {
         userRepository.save(newUser);
     }
 
+    @Transactional
     public void updateUserYear(User updatedUser) {
         userRepository.updateYearsFilter(
                 updatedUser.getMinYearOfCreateMovie(),
@@ -34,6 +36,7 @@ public class UserService {
         );
     }
 
+    @Transactional
     public void updateUserRecommendDeep(User updatedUser) {
         userRepository.updateRecommendDeep(
                 updatedUser.getDeepOfRecommend(),
@@ -59,31 +62,14 @@ public class UserService {
         return userWatchMovieRepository.getMovieFromUserHistory(user, pageRequest).getContent();
     }
 
+    @Transactional
     public void deleteMovieFromHistory(User user, Movie movie){
         userWatchMovieRepository.deleteByUserAndMovie(user, movie);
     }
 
     public User getUserWithHistory(Long chatId) {
         Optional<User> userOptional =
-                userRepository.findByChatIdAndGetHistory(chatId);
-        if (userOptional.isEmpty()) {
-            throw new IllegalStateException("User not already be taken");
-        } else
-            return userOptional.get();
-    }
-
-    public User getUserWithGenres(Long chatId) {
-        Optional<User> userOptional =
-                userRepository.findByChatId(chatId);
-        if (userOptional.isEmpty()) {
-            throw new IllegalStateException("User not already be taken");
-        } else
-            return userOptional.get();
-    }
-
-    public User getUserWithFullInf(Long chatId) {
-        Optional<User> userOptional =
-                userRepository.findByChatIdAndGetFullInf(chatId);
+                userRepository.findByChatIdAndGetWithHistory(chatId);
         if (userOptional.isEmpty()) {
             throw new IllegalStateException("User not already be taken");
         } else

@@ -3,11 +3,13 @@ package ru.zemlyakov.moviesRecommender2.controllers.telegram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StopWatch;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.zemlyakov.moviesRecommender2.controllers.telegram.commands.CommandContainer;
 import ru.zemlyakov.moviesRecommender2.controllers.telegram.keyboards.Callbacks.CallbackContainer;
 import ru.zemlyakov.moviesRecommender2.controllers.telegram.telegramServices.SendMessageBotServiceImpl;
+import ru.zemlyakov.moviesRecommender2.models.User;
 import ru.zemlyakov.moviesRecommender2.services.GenreService;
 import ru.zemlyakov.moviesRecommender2.services.MovieService;
 import ru.zemlyakov.moviesRecommender2.services.UserService;
@@ -60,6 +62,8 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
         if (update.hasCallbackQuery()) {
             String[] callback = update.getCallbackQuery().getData().split("\\^");
             callbackContainer.extractHandler(callback[0]).handle(update.getCallbackQuery());
@@ -67,6 +71,8 @@ public class TelegramBot extends TelegramLongPollingBot {
             String[] command = update.getMessage().getText().split(" ");
             commandContainer.extractCommand(command[0]).execute(update);
         }
+        stopWatch.stop();
+        System.out.println(stopWatch.getLastTaskTimeMillis());
     }
 
 }

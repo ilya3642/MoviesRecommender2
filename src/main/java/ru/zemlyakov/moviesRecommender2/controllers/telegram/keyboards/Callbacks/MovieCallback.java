@@ -34,7 +34,7 @@ public class MovieCallback implements Callback {
         Message message = callbackQuery.getMessage();
         String[] movieParameters = callbackQuery.getData().split("\\^");
         Long chatId = message.getChatId();
-        User user = userService.getUserWithFullInf(chatId);
+        User user = userService.getUserWithHistory(chatId);
         Movie movieHasBeenWatched;
 
         if (Pattern.compile("[а-яА-ЯеЁ]+").matcher(movieParameters[1]).find()) {

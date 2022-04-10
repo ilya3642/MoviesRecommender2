@@ -10,8 +10,6 @@ import ru.zemlyakov.moviesRecommender2.models.User;
 import ru.zemlyakov.moviesRecommender2.models.UserWatchMovie;
 import ru.zemlyakov.moviesRecommender2.models.UserWatchMovieId;
 
-import javax.transaction.Transactional;
-
 public interface UserWatchMovieRepository extends JpaRepository<UserWatchMovie, UserWatchMovieId> {
 
     @Query("SELECT um.movie FROM UserWatchMovie um WHERE um.user=?1")
@@ -22,7 +20,6 @@ public interface UserWatchMovieRepository extends JpaRepository<UserWatchMovie, 
 
     int countByUserEquals(User user);
 
-    @Transactional
     @Modifying
     void deleteByUserAndMovie(User user, Movie movie);
 

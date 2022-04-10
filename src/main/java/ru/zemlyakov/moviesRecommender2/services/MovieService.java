@@ -76,15 +76,15 @@ public class MovieService {
                     pageRequest
             ).getContent();
         } else if (!user.getHistoryOfViewing().isEmpty() && user.getFavoriteGenres().isEmpty()) {
-                result = movieRepository.findDistinctByMovieIdNotInAndYearOfCreateBetween(
-                        user.getHistoryOfViewing().stream()
-                                .map(UserWatchMovie::getMovie)
-                                .map(Movie::getMovieId)
-                                .collect(Collectors.toList()),
-                        user.getMinYearOfCreateMovie(),
-                        user.getMaxYearOfCreateMovie(),
-                        pageRequest
-                ).getContent();
+            result = movieRepository.findDistinctByMovieIdNotInAndYearOfCreateBetween(
+                    user.getHistoryOfViewing().stream()
+                            .map(UserWatchMovie::getMovie)
+                            .map(Movie::getMovieId)
+                            .collect(Collectors.toList()),
+                    user.getMinYearOfCreateMovie(),
+                    user.getMaxYearOfCreateMovie(),
+                    pageRequest
+            ).getContent();
         } else
             result = movieRepository.findDistinctByYearOfCreateBetween(
                     user.getMinYearOfCreateMovie(),
@@ -92,10 +92,10 @@ public class MovieService {
                     pageRequest
             ).getContent();
 
-            for (Movie movie : result)
-                Hibernate.initialize(movie.getGenre());
+        for (Movie movie : result)
+            Hibernate.initialize(movie.getGenre());
 
-            return result;
+        return result;
     }
 
     public Movie getMovie(String title, short yearOfCreate) {
@@ -111,7 +111,7 @@ public class MovieService {
         return optionalMovie.get();
     }
 
-    public Movie getMovieOriginalTitle(String originalTitle, short yearOfCreate){
+    public Movie getMovieOriginalTitle(String originalTitle, short yearOfCreate) {
         Optional<Movie> optionalMovie =
                 movieRepository.findByOriginalTitleAndYearOfCreate(
                         originalTitle, yearOfCreate
@@ -125,14 +125,16 @@ public class MovieService {
     }
 
     @Transactional
-    public void updateMovie(Long id,
-                            String title,
-                            Short yearOfCreate,
-                            String description,
-                            String originalTitle,
-                            String webURL,
-                            Set<Genre> genre,
-                            Rating rating) {
+    public void updateMovie(
+            Long id,
+            String title,
+            Short yearOfCreate,
+            String description,
+            String originalTitle,
+            String webURL,
+            Set<Genre> genre,
+            Rating rating
+    ) {
         Movie updatableMovie = movieRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalStateException("Movie with id = " + id + "does not exists"));

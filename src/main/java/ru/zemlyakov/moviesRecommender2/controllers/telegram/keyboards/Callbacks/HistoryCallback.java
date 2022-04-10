@@ -40,7 +40,7 @@ public class HistoryCallback implements Callback {
         int numOfPage = 1;
 
         if (historyParameters.length > 2) {
-            handleMovie(historyParameters, userService.getUserWithFullInf(chatId));
+            handleMovie(historyParameters, userService.getUserWithHistory(chatId));
             needToRefreshNumPage = true;
         } else if ("close".equals(historyParameters[1])) {
             messageService.deleteMessage(

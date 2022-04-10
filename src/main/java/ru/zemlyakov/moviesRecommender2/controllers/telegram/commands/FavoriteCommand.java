@@ -32,7 +32,7 @@ public class FavoriteCommand implements Command {
     public void execute(Update update) {
         Long chatId = update.getMessage().getChatId();
         List<Genre> genres = genreService.getAllGenres();
-        User user = userService.getUserWithGenres(chatId);
+        User user = userService.getUser(chatId);
 
         messageService.sendMessage(
                 chatId.toString(),
