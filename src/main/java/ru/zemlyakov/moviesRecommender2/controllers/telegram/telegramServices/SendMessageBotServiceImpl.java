@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -56,7 +57,7 @@ public class SendMessageBotServiceImpl implements SendMessageBotService {
     }
 
     @Override
-    public void editMessage(String chatId, int messageId, List<List<InlineKeyboardButton>> buttons) {
+    public void editMessageKeyboard(String chatId, int messageId, List<List<InlineKeyboardButton>> buttons) {
         try {
             telegramBot.execute(
                     EditMessageReplyMarkup.builder()
@@ -68,6 +69,26 @@ public class SendMessageBotServiceImpl implements SendMessageBotService {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void editMessage(String chatId, int messageId, String message, List<List<InlineKeyboardButton>> buttons) {
+
+        try {
+            telegramBot.execute(
+                    EditMessageText.builder()
+                            .chatId(chatId)
+                            .parseMode("Markdown")
+                            .messageId(messageId)
+                            .text(message)
+                            .replyMarkup(InlineKeyboardMarkup.builder().keyboard(buttons).build())
+                            .build()
+            );
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

@@ -49,7 +49,7 @@ public class GenreCallback implements Callback {
 
         user.refreshPageOfRecommend();
         userService.saveOrUpdate(user);
-        messageService.editMessage(
+        messageService.editMessageKeyboard(
                 chatId.toString(),
                 message.getMessageId(),
                 GenreKeyboard.getListGenreButtons(

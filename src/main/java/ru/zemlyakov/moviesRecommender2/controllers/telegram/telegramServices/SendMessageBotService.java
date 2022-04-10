@@ -10,7 +10,9 @@ public interface SendMessageBotService {
 
     void sendMessage(String chatId, String message, List<List<InlineKeyboardButton>> buttons);
 
-    void editMessage(String chatId, int messageId, List<List<InlineKeyboardButton>> buttons);
+    void editMessageKeyboard(String chatId, int messageId, List<List<InlineKeyboardButton>> buttons);
+
+    void editMessage(String chatId, int messageId, String message, List<List<InlineKeyboardButton>> buttons);
 
     void deleteMessage(String chatId, int messageId);
 

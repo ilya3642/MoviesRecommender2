@@ -48,6 +48,7 @@ public class HistoryCallback implements Callback {
                     message.getMessageId()
             );
             return;
+
         } else if (Integer.parseInt(historyParameters[1]) == -1) {
             return;
         }
@@ -57,12 +58,6 @@ public class HistoryCallback implements Callback {
         }
 
         User user = userService.getUser(chatId);
-
-        messageService.deleteMessage(
-                chatId.toString(),
-                message.getMessageId()
-        );
-
         int historySize = userService.getHistorySize(user);
 
         if (historySize == 0) {
@@ -74,8 +69,9 @@ public class HistoryCallback implements Callback {
             List<Movie> history = userService.getMovieFromUserHistory(user, numOfPage - 1);
             Movie movie = history.get(0);
 
-            messageService.sendMessage(
+            messageService.editMessage(
                     chatId.toString(),
+                    callbackQuery.getMessage().getMessageId(),
                     HISTORY_TEXT + movie.toShortRepresent(),
                     HistoryKeyboard.getListHistoryButtons(movie, numOfPage, historySize)
             );

@@ -53,16 +53,12 @@ public class MovieCallback implements Callback {
         user.getHistoryOfViewing().add(new UserWatchMovie(user, movieHasBeenWatched, LocalDateTime.now()));
         userService.saveOrUpdate(user);
 
-        messageService.deleteMessage(
-                chatId.toString(),
-                message.getMessageId()
-                );
-
         Movie newRecommendMovie =
                 movieService.getRecommendation(user, user.getDeepOfRecommend()-1, 3).get(2);
 
-        messageService.sendMessage(
+        messageService.editMessage(
                 chatId.toString(),
+                message.getMessageId(),
                 newRecommendMovie.toRepresent(),
                 MovieKeyboard.getListMovieButtons(newRecommendMovie)
         );
